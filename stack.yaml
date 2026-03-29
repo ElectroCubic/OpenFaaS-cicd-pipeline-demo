@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  node-app:
+    lang: node22
+    handler: ../node-app
+    image: 2023bcs0005anush/node-app:latest
+

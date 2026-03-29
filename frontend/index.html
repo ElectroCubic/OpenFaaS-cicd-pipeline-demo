@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task App</title>
+</head>
+<body>
+    <h2>Mini Task App</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button onclick="sendTask()">Submit</button>
+
+    <h3>Response:</h3>
+    <pre id="output"></pre>
+
+    <script>
+        async function sendTask() {
+            const input = document.getElementById("taskInput").value;
+
+            const res = await fetch("http://localhost:8080/function/node-app", {
+				method: "POST",
+				headers: {
+					"Content-Type": "text/plain"
+				},
+				body: input
+			})
+
+            const data = await res.json();
+            document.getElementById("output").innerText =
+                JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

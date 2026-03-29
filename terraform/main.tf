@@ -1,0 +1,14 @@
+provider "null" {}
+
+resource "null_resource" "deploy_backend" {
+  provisioner "local-exec" {
+    command = "faas-cli up -f ../stack.yaml"
+  }
+}
+
+resource "null_resource" "destroy_backend" {
+  provisioner "local-exec" {
+    when    = destroy
+    command = "faas-cli remove node-app"
+  }
+}

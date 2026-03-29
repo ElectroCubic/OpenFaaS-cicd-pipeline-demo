@@ -1,0 +1,36 @@
+name: OpenFaaS CI/CD Anush Bundel 2023BCS0005
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install faas-cli
+        run: curl -sSL https://cli.openfaas.com | sudo sh
+
+      - name: Install Terraform
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y terraform
+
+      - name: Set Kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+          export KUBECONFIG=$PWD/kubeconfig
+
+      - name: Login to OpenFaaS
+        run: |
+          echo "${{ secrets.OPENFAAS_PASSWORD }}" | faas-cli login --username admin --password-stdin
+
+      - name: Terraform Apply
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
