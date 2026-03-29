@@ -66,6 +66,9 @@ jobs:
           kubectl -n openfaas get secret basic-auth \
           -o jsonpath="{.data.basic-auth-password}" | base64 --decode > password.txt
 
+	  - name: Copy password to terraform
+	    run: cp password.txt terraform/password.txt
+
       - name: Port forward
         run: |
           kubectl port-forward svc/gateway -n openfaas 8080:8080 &

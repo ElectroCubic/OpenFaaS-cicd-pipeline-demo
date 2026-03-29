@@ -2,7 +2,7 @@ provider "null" {}
 
 resource "null_resource" "deploy_backend" {
   provisioner "local-exec" {
-    command = "faas-cli up -f ../stack.yaml"
+    command = "cat ../password.txt | faas-cli login --username admin --password-stdin && faas-cli up -f ../stack.yaml"
   }
 }
 
