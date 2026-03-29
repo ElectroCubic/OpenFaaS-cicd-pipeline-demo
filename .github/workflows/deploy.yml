@@ -1,4 +1,4 @@
-name: OpenFaaS CI/CD
+name: OpenFaaS CI/CD Anush Bundel 2023BCS0005
 
 on:
   push:
@@ -9,16 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Install faas-cli
         run: curl -sSL https://cli.openfaas.com | sudo sh
 
       - name: Install Terraform
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Set kubeconfig
         run: |
