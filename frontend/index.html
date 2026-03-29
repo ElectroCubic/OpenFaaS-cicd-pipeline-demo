@@ -16,7 +16,7 @@
         async function sendTask() {
             const input = document.getElementById("taskInput").value;
 
-            const res = await fetch("http://localhost:8080/function/node-app", {
+            const res = await fetch("http://192.168.49.1:8080/function/node-app", {
 				method: "POST",
 				headers: {
 					"Content-Type": "text/plain"
