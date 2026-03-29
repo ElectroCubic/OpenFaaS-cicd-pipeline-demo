@@ -3,12 +3,6 @@ name: OpenFaaS CI/CD Anush Bundel 2023BCS0005
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      action:
-        description: "Choose action"
-        required: true
-        default: "apply"
 
 jobs:
   deploy:
@@ -86,14 +80,13 @@ jobs:
           terraform init
 
       - name: Terraform Apply
-        if: github.event.inputs.action != 'destroy'
         run: |
           cd terraform
           cat password.txt | faas-cli login --username admin --password-stdin
           terraform apply -auto-approve
+          sleep 30
 
       - name: Terraform Destroy
-        if: github.event.inputs.action == 'destroy'
         run: |
           cd terraform
           cat password.txt | faas-cli login --username admin --password-stdin
